@@ -32,8 +32,8 @@ def RunGame() -> bool:
                     continue #if the play is not a good play, ask the player to make another play
                 player_2.OpponentPlays(play) #tell the opponent what play was made
                 hit = p2_board.IsHit(play) #check if the play is a hit
-                player_1.TurnFeedback(play, hit)#tell the player if they made a hit or not with the play
-                p2_board.MakePlay(play)#make the play on the board
+                sink = p2_board.MakePlay(play)#make the play on the board, check if it sunk a ship
+                player_1.TurnFeedback(play, hit, sink)#tell the player if they made a hit or not with the play
 
         #it is player_2's turn
         else:
@@ -44,8 +44,8 @@ def RunGame() -> bool:
                     continue #if the play is not a good play, ask the player to make another play
                 player_1.OpponentPlays(play) #tell the opponent what play was made
                 hit = p1_board.IsHit(play) #check if the play is a hit
-                player_2.TurnFeedback(play, hit)#tell the player if they made a hit or not with the play
-                p1_board.MakePlay(play)#make the play on the board
+                sink = p1_board.MakePlay(play)#make the play on the board, check if it sunk a ship
+                player_2.TurnFeedback(play, hit, sink)#tell the player if they made a hit or not with the play
 
         turn += 1 #it is now the next turn
         break

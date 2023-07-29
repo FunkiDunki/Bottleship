@@ -7,7 +7,7 @@
  Sunk(): returns True if all ships on board are sunk, returns False otherwise
  IsValid(pos: [x, y]): returns True if the position represents a valid play, False otherwise
  IsHit(pos: [x, y]): returns True if the position would represent a hit on the board, False otherwise
- MakePlay(play: [x, y]): makes a play at x, y
+ MakePlay(play: [x, y]): makes a play at x, y, returns True if the ship it hit was sunk, returns False otherwise
 
 ## Reqs for Player Class
  __init__(size: int): inits for a certain board size
@@ -15,4 +15,3 @@
  MakePlay(): returns a play as a position [x, y]
  OpponentPlay(play): takes information about the opponent's turn, no action necessary
  TurnFeedback(play, hit, sink): recieve info about your own play, hit and sink are bools for info about the play
- 
