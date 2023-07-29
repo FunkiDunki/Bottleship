@@ -1,5 +1,8 @@
 from typing import List
 
+class BasePlayer:
+    
+
 class Ship:
     def __init__(self, length: int, start: tuple, dir:tuple):
         self.length = length
