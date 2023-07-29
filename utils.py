@@ -93,19 +93,26 @@ class Board:
 
 def print_board(board: Board):
     buff = ""
-    for i in range(len(board.squares)):
-        buff += chr(64 + len(board.squares) - i)
-        buff += '   '
-        for j in range(len(board.squares)):
-            addchar = (board.squares[i][j])
-            addchar = str(addchar) if addchar != 1 else "."
-            buff += addchar + '  '
-
-        buff += "\n"
-    buff += "\n"
+    
     buff += '    '
     for i in range(len(board.squares)):
         buff += str(i) + '  '
+    buff += "\n"
+    for i in range(len(board.squares)):
+        buff += chr(65 + i)
+        buff += '   '
+        for j in range(len(board.squares)):
+            addchar = board.squares[j][i]
+            if addchar == 1:
+                addchar = '.'
+            elif addchar == -1:
+                addchar = 'O'
+            elif addchar < 0:
+                addchar = 'X'
+            else:
+                addchar = str(addchar)
+            buff += addchar + '  '
+        buff += "\n"
     return buff
 
 
@@ -117,6 +124,6 @@ if __name__ == "__main__":
         Ship(3, (3,3), (1,0))
     ]
 
-    board.add_ships(ships)
+    board.place_ships(ships)
     
     print(board)
