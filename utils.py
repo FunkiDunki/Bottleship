@@ -23,11 +23,11 @@ class Player(ABC):
         pass
 
 class Ship:
-    def __init__(self, length: int, start: tuple, dir:tuple):
+    def __init__(self, length: int, start: Tuple[int,int], dir:Tuple[int,int]):
         self.length = length
         self.points = [(start[0]+dir[0]*i, start[1]+dir[1]*i)for i in range(length)]
     
-    def check_hit(self, pt: tuple) -> bool:
+    def check_hit(self, pt: Tuple[int,int]) -> bool:
         for p in self.points:
             if(p == pt):
                 return True
@@ -66,13 +66,13 @@ class Board:
         return True
             
 
-    def is_valid_guess(self, guess: tuple) -> bool:
+    def is_valid_guess(self, guess: Tuple[int,int]) -> bool:
         if not self.is_pt(guess):
             return False
         val = self.squares[guess[0]][guess[1]]
         return val>0
     
-    def is_pt(self, pt: tuple) -> bool:
+    def is_pt(self, pt: Tuple[int,int]) -> bool:
         return pt[0] >= 0 and pt[0] < self.size and pt[1] >= 0 and pt[1] < self.size
 
     def sunk(self) -> bool:
@@ -81,7 +81,7 @@ class Board:
                 return False
         return True
     
-    def is_hit(self, guess) -> bool:
+    def is_hit(self, guess: Tuple[int,int]) -> bool:
         assert self.is_pt(guess)
         for ship in ships:
             for pt in ship.points:
@@ -89,7 +89,7 @@ class Board:
                     return True
         return False
 
-    def is_sunk(self, guess) -> bool:
+    def is_sunk(self, guess:Tuple[int,int]) -> bool:
         assert self.is_pt(guess)
         index = abs(self.squares[guess[0]][guess[1]])-2
         if index == -1:
@@ -101,7 +101,7 @@ class Board:
         return True
 
 
-    def make_play(self, guess) -> bool:
+    def make_play(self, guess: Tuple[int,int]) -> bool:
         assert self.is_valid_guess(guess)
         index = abs(self.squares[guess[0]][guess[1]])-2
         self.squares[guess[0]][guess[1]] *= -1
