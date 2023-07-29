@@ -18,7 +18,7 @@ class Board:
         self.ships: List[ships] = []
         self.sunkships = []
 
-    def add_ships(self, ships: List[Ship]) -> bool:
+    def place_ships(self, ships: List[Ship]) -> bool:
         if not self.check_ship_list(ships):
             return False
         for ship in ships:
