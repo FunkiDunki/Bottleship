@@ -9,6 +9,10 @@
  IsHit(pos: [x, y]): returns True if the position would represent a hit on the board, False otherwise
  MakePlay(play: [x, y]): makes a play at x, y
 
+## Reqs for Ship class
+__init__(length: int, start: tuple, dir: tuple)
+points: list of tuple points that the ship occupies
+
 ## Reqs for Player Class
  __init__(size: int): inits for a certain board size
  PlaceShips(sizes: List[int]): creates ships to place on the board of certain sizes and returns them
