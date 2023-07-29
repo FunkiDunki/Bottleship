@@ -1,7 +1,26 @@
-from typing import List
+from typing import List, Tuple
+from abc import ABC, abstractmethod
 
-class BasePlayer:
-    
+
+class Player(ABC):
+    def __init__(size: int):
+        pass
+
+    @abstractmethod
+    def PlaceShips(sizes: list[int]):
+        pass
+
+    @abstractmethod
+    def make_play():
+        pass
+
+    @abstractmethod
+    def opponent_play(play: Tuple[int, int]):
+        pass
+
+    @abstractmethod
+    def turn_feedback(play: Tuple[int, int], hit: bool, sink: bool):
+        pass
 
 class Ship:
     def __init__(self, length: int, start: tuple, dir:tuple):
