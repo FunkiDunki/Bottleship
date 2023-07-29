@@ -16,6 +16,7 @@ class Board:
     def __init__(self, size: int):
         self.squares = [[1 for i in range(size)] for j in range(size)]
         self.ships = []
+        self.sunkships = []
 
     def add_ships(self, ships: List[Ship]) -> bool:
         if not self.check_ship_list(ships):
@@ -23,6 +24,7 @@ class Board:
         for ship in ships:
             val = len(self.ships)+2
             self.ships.append(ship)
+            self.sunkships.append(False)
             for pt in ship.points:
                 self.squares[pt[0]][pt[1]] = val
         return True
@@ -34,42 +36,68 @@ class Board:
                 if(i==j):
                     continue
                 for p1 in ship.points:
+                    if not self.is_pt(p1):
+                        return False
                     for p2 in ship2.points:
                         if p1 == p2:
                             return False
         return True
             
 
-    def is_valid(self, guess: tuple) -> bool:
-        if guess[0] < 0 or guess[0] >= self.size or guess[1] < 0 or guess[1] >= self.size:
+    def is_valid_guess(self, guess: tuple) -> bool:
+        if not self.is_pt(guess):
             return False
         val = self.squares[guess[0]][guess[1]]
         return val>0
     
-    def __str__(self):
+    def is_pt(self, pt: tuple) -> bool:
+        return pt[0] >= 0 and pt[0] < self.size and pt[1] >= 0 and pt[1] < self.size
+
+    def sunk(self) -> bool:
+        for b in self.sunkships:
+            if not b:
+                return False
+        return True
+    
+    def is_hit(self, guess) -> bool:
+        for ship in ships:
+            for pt in ship.points:
+                if guess == pt:
+                    return True
+        return False
+
+    def make_play(self, guess):
         pass
 
-def print_board(board):
+    def __str__(self):
+        return print_board(self)
 
+def print_board(board: Board):
+    buff = ""
     for i in range(len(board.squares)):
-        buff = chr(64 + len(board.squares) - i)
+        buff += chr(64 + len(board.squares) - i)
         buff += '   '
         for j in range(len(board.squares)):
-            buff += str(board.squares[i][j]) + '  '
+            addchar = (board.squares[i][j])
+            addchar = str(addchar) if addchar != 1 else "."
+            buff += addchar + '  '
 
-        print(buff)
-    print()
-    buff = '    '
+        buff += "\n"
+    buff += "\n"
+    buff += '    '
     for i in range(len(board.squares)):
         buff += str(i) + '  '
-    print(buff)
+    return buff
 
 
-board = Board(10)
 
-ships = [
-    Ship(3, (3,3), (1,0))
-]
+if __name__ == "__main__":
+    board = Board(10)
 
-board.add_ships(ships)
-print_board(board)
+    ships = [
+        Ship(3, (3,3), (1,0))
+    ]
+
+    board.add_ships(ships)
+    
+    print(board)
