@@ -15,7 +15,7 @@ class Ship:
 class Board:
     def __init__(self, size: int):
         self.squares = [[1 for i in range(size)] for j in range(size)]
-        self.ships = []
+        self.ships: List[ships] = []
         self.sunkships = []
 
     def add_ships(self, ships: List[Ship]) -> bool:
@@ -60,14 +60,33 @@ class Board:
         return True
     
     def is_hit(self, guess) -> bool:
+        assert self.is_pt(guess)
         for ship in ships:
             for pt in ship.points:
                 if guess == pt:
                     return True
         return False
 
-    def make_play(self, guess):
-        pass
+    def is_sunk(self, guess) -> bool:
+        assert self.is_pt(guess)
+        index = abs(self.squares[guess[0]][guess[1]])-2
+        if index == -1:
+            return False
+        ship: Ship = self.ships[index]
+        for pt in ship.points:
+            if self.squares(pt[0], pt[1])>1:
+                return False
+        return True
+
+
+    def make_play(self, guess) -> bool:
+        assert self.is_valid_guess(guess)
+        index = abs(self.squares[guess[0]][guess[1]])-2
+        self.squares[guess[0]][guess[1]] *= -1
+        if(self.is_sunk(guess)):
+            self.sunkships[index] = True
+            return True
+        return False
 
     def __str__(self):
         return print_board(self)
