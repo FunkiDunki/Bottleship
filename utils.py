@@ -16,7 +16,7 @@ def print_board(board):
 
 board = {
     "x": 10,
-    "y":10,
+    "y": 10,
 }
 
 print_board(board)
