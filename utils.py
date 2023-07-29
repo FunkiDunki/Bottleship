@@ -45,23 +45,25 @@ class Board:
 
 def print_board(board):
 
-    for i in range(board["y"]):
-        buff = chr(64 + board["y"] - i)
+    for i in range(len(board.squares)):
+        buff = chr(64 + len(board.squares) - i)
         buff += '   '
-        for j in range(board["x"]):
-            buff += '.' + '  '
+        for j in range(len(board.squares)):
+            buff += str(board.squares[i][j]) + '  '
 
         print(buff)
     print()
     buff = '    '
-    for i in range(board["x"]):
+    for i in range(len(board.squares)):
         buff += str(i) + '  '
     print(buff)
 
 
-board = {
-    "x": 10,
-    "y": 10,
-}
+board = Board(10)
 
+ships = [
+    Ship(3, (3,3), (1,0))
+]
+
+board.add_ships(ships)
 print_board(board)
