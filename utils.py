@@ -21,7 +21,10 @@ class Board:
         if not self.check_ship_list(ships):
             return False
         for ship in ships:
+            val = len(self.ships)+2
             self.ships.append(ship)
+            for pt in ship.points:
+                self.squares[pt[0]][pt[1]] = val
         return True
 
 
@@ -40,8 +43,11 @@ class Board:
     def is_valid(self, guess: tuple) -> bool:
         if guess[0] < 0 or guess[0] >= self.size or guess[1] < 0 or guess[1] >= self.size:
             return False
-        val = self.squares[guess[0],guess[1]]
+        val = self.squares[guess[0]][guess[1]]
         return val>0
+    
+    def __str__(self):
+        pass
 
 def print_board(board):
 
