@@ -1,10 +1,13 @@
+from utils import Board, Ship
+
 
 
 #runs a game between two players. The id of the winner is returned at the end. -1 for failure
 def RunGame() -> bool:
+    size = 8
     #TODO:setup board:
-    p1_board = None
-    p2_board = None
+    p1_board = Board(size)
+    p2_board = Board(size)
 
     #TODO:setup players:
     player_1 = None
@@ -15,37 +18,37 @@ def RunGame() -> bool:
     sizes = [2, 3, 4, 5]
     p1_ships = player_1.PlaceShips(sizes)
     p2_ships = player_2.PlaceShips(sizes)
-    if not p1_board.PlaceShips(p1_ships) or not p2_board.PlaceShips(p2_ships):
+    if not p1_board.place_ships(p1_ships) or not p2_board.place_ships(p2_ships):
         #the placements were not valid:
         print(p1_ships)
         print(p2_ships)
         return -1
 
     #TODO:main loop, ends when the board detects a win:
-    while not p1_board.Sunk() and not p2_board.Sunk():
+    while not p1_board.sunk() and not p2_board.sunk():
         #it is player_1's turn
         if turn % 2 == 0:
             hit = True
             while hit:
-                play = player_1.MakePlay() #ask the player to make a play
-                if not p2_board.IsValid(play):
+                play = player_1.make_play() #ask the player to make a play
+                if not p2_board.is_valid_guess(play):
                     continue #if the play is not a good play, ask the player to make another play
-                player_2.OpponentPlays(play) #tell the opponent what play was made
-                hit = p2_board.IsHit(play) #check if the play is a hit
-                sink = p2_board.MakePlay(play)#make the play on the board, check if it sunk a ship
-                player_1.TurnFeedback(play, hit, sink)#tell the player if they made a hit or not with the play
+                player_2.opponent_play(play) #tell the opponent what play was made
+                hit = p2_board.is_hit(play) #check if the play is a hit
+                sink = p2_board.make_play(play)#make the play on the board, check if it sunk a ship
+                player_1.turn_feedback(play, hit, sink)#tell the player if they made a hit or not with the play
 
         #it is player_2's turn
         else:
             hit = True
             while hit:
-                play = player_2.MakePlay() #ask the player to make a play
-                if not p1_board.IsValid(play):
+                play = player_2.make_play() #ask the player to make a play
+                if not p1_board.is_valid_guess(play):
                     continue #if the play is not a good play, ask the player to make another play
-                player_1.OpponentPlays(play) #tell the opponent what play was made
-                hit = p1_board.IsHit(play) #check if the play is a hit
-                sink = p1_board.MakePlay(play)#make the play on the board, check if it sunk a ship
-                player_2.TurnFeedback(play, hit, sink)#tell the player if they made a hit or not with the play
+                player_1.opponent_play(play) #tell the opponent what play was made
+                hit = p1_board.is_hit(play) #check if the play is a hit
+                sink = p1_board.make_play(play)#make the play on the board, check if it sunk a ship
+                player_2.turn_feedback(play, hit, sink)#tell the player if they made a hit or not with the play
 
         turn += 1 #it is now the next turn
         break
