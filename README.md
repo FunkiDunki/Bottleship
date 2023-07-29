@@ -15,7 +15,7 @@
 
 ## Reqs for Player Class
  __init_\_(size: int): inits for a certain board size
- PlaceShips(sizes: List[int]): creates ships to place on the board of certain sizes and returns them
- MakePlay(): returns a play as a position [x, y]
- OpponentPlay(play): takes information about the opponent's turn, no action necessary
- TurnFeedback(play, hit, sink): recieve info about your own play, hit and sink are bools for info about the play
+ place_ships(sizes: List[int]): creates ships to place on the board of certain sizes and returns them
+ make_play(): returns a play as a position [x, y]
+ opponent_play(play): takes information about the opponent's turn, no action necessary
+ turn_feedbac(play, hit, sink): recieve info about your own play, hit and sink are bools for info about the play
