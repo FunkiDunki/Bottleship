@@ -42,6 +42,9 @@ class Board:
             return False
         val = self.squares[guess[0],guess[1]]
         return val>0
+    
+    def __str__(self):
+        pass
 
 def print_board(board):
 
