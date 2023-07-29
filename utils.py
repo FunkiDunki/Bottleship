@@ -8,7 +8,7 @@ def print_board(board):
 
         print(buff)
     print()
-    buff = '   '
+    buff = '    '
     for i in range(board["x"]):
         buff += str(i) + '  '
     print(buff)
