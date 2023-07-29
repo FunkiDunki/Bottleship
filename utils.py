@@ -7,7 +7,7 @@ class Player(ABC):
         pass
 
     @abstractmethod
-    def PlaceShips(sizes: list[int]):
+    def place_ships(sizes: list[int]):
         pass
 
     @abstractmethod

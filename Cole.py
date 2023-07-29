@@ -1,6 +1,6 @@
-from utils import Ship, Board
+from utils import Ship, Board, Player
 
 
 
-class StatPlayer():
+class StatPlayer(Player):
     pass
