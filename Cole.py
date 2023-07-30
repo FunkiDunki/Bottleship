@@ -25,11 +25,11 @@ class GuessBoard:
         return self.sqaures[pt[0]][pt[1]]
     
     def possible(self):
-        possible = [[1 for i in range(self.size)] for j in range(self.size)]
+        possible = [[0 for i in range(self.size)] for j in range(self.size)]
         for i in range(self.size):
             for j in range(self.size):
                 if self.get_pt((i,j)) != 1:
-                    pass
+                    continue
         
 
 
