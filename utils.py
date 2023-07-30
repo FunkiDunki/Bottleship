@@ -54,6 +54,9 @@ class Board:
 
     def check_ship_list(self, ships: List[Ship]) -> bool:
         for i, ship in enumerate(ships):
+            for p1 in ship.points:
+                    if not self.is_pt(p1):
+                        return False
             for j,ship2 in enumerate(ships):
                 if(i==j):
                     continue
