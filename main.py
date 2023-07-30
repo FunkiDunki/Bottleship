@@ -1,4 +1,6 @@
 from utils import Board, Ship
+from FunkiDunki import FunkiDunki
+import time
 
 
 
@@ -10,22 +12,25 @@ def RunGame() -> bool:
     p2_board = Board(size)
 
     #TODO:setup players:
-    player_1 = None
-    player_2 = None
+    player_1 = FunkiDunki(size)
+    player_2 = FunkiDunki(size)
     turn = 0 #turn parity determines which player's turn it is
 
     #TODO:players place their pieces
     sizes = [2, 3, 4, 5]
-    p1_ships = player_1.PlaceShips(sizes)
-    p2_ships = player_2.PlaceShips(sizes)
+    p1_ships = player_1.place_ships(sizes)
+    p2_ships = player_2.place_ships(sizes)
     if not p1_board.place_ships(p1_ships) or not p2_board.place_ships(p2_ships):
         #the placements were not valid:
         print(p1_ships)
         print(p2_ships)
         return -1
 
+    print(p1_board)
+    print(p2_board)
     #TODO:main loop, ends when the board detects a win:
     while not p1_board.sunk() and not p2_board.sunk():
+        time.sleep(0.5)
         #it is player_1's turn
         if turn % 2 == 0:
             hit = True
@@ -50,8 +55,12 @@ def RunGame() -> bool:
                 sink = p1_board.make_play(play)#make the play on the board, check if it sunk a ship
                 player_2.turn_feedback(play, hit, sink)#tell the player if they made a hit or not with the play
 
+        print(p1_board)
+        print(p2_board)
         turn += 1 #it is now the next turn
-        break
 
     #TODO:end of game tasks
     return
+
+if __name__ == "__main__":
+    RunGame()

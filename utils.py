@@ -3,8 +3,6 @@ from abc import ABC, abstractmethod
 
 
 class Player(ABC):
-    def __init__(size: int):
-        pass
 
     @abstractmethod
     def place_ships(sizes: List[int]):
@@ -39,6 +37,7 @@ class Board:
         self.squares = [[1 for i in range(size)] for j in range(size)]
         self.ships: List[ships] = []
         self.sunkships = []
+        self.size = size
 
     def place_ships(self, ships: List[Ship]) -> bool:
         if not self.check_ship_list(ships):
@@ -86,7 +85,7 @@ class Board:
     
     def is_hit(self, guess: Tuple[int,int]) -> bool:
         assert self.is_pt(guess)
-        for ship in ships:
+        for ship in self.ships:
             for pt in ship.points:
                 if guess == pt:
                     return True
@@ -99,7 +98,7 @@ class Board:
             return False
         ship: Ship = self.ships[index]
         for pt in ship.points:
-            if self.squares(pt[0], pt[1])>1:
+            if self.squares[pt[0]][pt[1]]>1:
                 return False
         return True
 

@@ -8,7 +8,7 @@ class FunkiDunki (Player):
         self.ships = []
         self.t = 0
 
-    def PlaceShips(self, sizes: list[int]):
+    def place_ships(self, sizes: list[int]):
         dirs = [[1,0], [0,1]]
         posits = []
         for i in range(self.size):
@@ -19,7 +19,7 @@ class FunkiDunki (Player):
             for pos in posits:
                 for dir in dirs:
                     sh = Ship(si, pos, dir)
-                    li = self.ships
+                    li = self.ships.copy()
                     li.append(sh)
                     if self.myboard.check_ship_list(li):
                         self.ships.append(sh)
@@ -29,13 +29,13 @@ class FunkiDunki (Player):
                     break
         return(self.ships)
 
-    def MakePlay(self):
-        play = [self.t%self.size, self.t/self.size]
+    def make_play(self):
+        play = [self.t%self.size, self.t//self.size]
         self.t+= 1
         return play
 
-    def OpponentPlay(self, play: tuple[int, int]):
+    def opponent_play(self, play: tuple[int, int]):
         pass
 
-    def TurnFeedback(self, play: tuple[int, int], hit: bool, sink: bool):
+    def turn_feedback(self, play: tuple[int, int], hit: bool, sink: bool):
         pass
